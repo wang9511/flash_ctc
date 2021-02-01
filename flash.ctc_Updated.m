@@ -122,7 +122,6 @@ var
 
 ruleset h : NODE; d : DATA do
 startstate "Init"
-  Home := h;
   undefine Sta;
   Sta.MemData := d;
   Sta.Dir.Pending := false;
@@ -473,7 +472,7 @@ begin
     NxtSta.MemData := Sta.HomeProc.CacheData;
     NxtSta.HomeProc.CacheState := CACHE_S;
     NxtSta.UniMsg[src].Cmd := UNI_Put;
-    NxtSta.UniMsg[src].Proc := Home;
+    NxtSta.UniMsg[src].HomeProc := true;
     NxtSta.UniMsg[src].Data := Sta.HomeProc.CacheData;
   else
     if (Sta.Dir.HeadVld) then
