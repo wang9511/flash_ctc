@@ -123,7 +123,6 @@ var
 
 ruleset h : NODE; d : DATA do
 startstate "Init"
-  Home := h;
   undefine Sta;
   Sta.MemData := d;
   Sta.Dir.Pending := false;
@@ -199,7 +198,7 @@ begin
 --
   NxtSta.Proc[src].ProcCmd := NODE_Get;
   NxtSta.UniMsg[src].Cmd := UNI_Get;
-  NxtSta.HomeUniMsg.Proc := true;
+  NxtSta.HomeUniMsg.HomeProc := true;
   undefine NxtSta.UniMsg[src].Data;
 --
   Sta := NxtSta;
@@ -217,7 +216,7 @@ begin
 --
   NxtSta.HomeProc.ProcCmd := NODE_Get;
   NxtSta.HomeUniMsg.Cmd := UNI_Get;
-  NxtSta.HomeUniMsg.Proc := true;
+  NxtSta.HomeUniMsg.HomeProc := true;
   undefine NxtSta.HomeUniMsg.Data;
 --
   Sta := NxtSta;
@@ -1715,7 +1714,7 @@ rule "ABS_NI_InvAck"
     ( Sta.UniMsg[q].Cmd = UNI_Get | Sta.UniMsg[q].Cmd = UNI_GetX ->
       Sta.UniMsg[q].HomeProc = true ) &
     ( Sta.UniMsg[q].Cmd = UNI_PutX ->
-      Sta.UniMsg[q].Proc = Home & Sta.PendReqSrc = q )
+      Sta.UniMsg[q].HomeProc = true & Sta.PendReqSrc = q )
   end  -- Lemma_4
 ==>
 var NxtSta : STATE;
